@@ -1,9 +1,12 @@
 import { TextFileView } from "obsidian";
+import App1 from "./App.vue";
+import { createApp } from "vue";
 
 export const VIEW_TYPE_CSV = "csv-view";
 
 export class CSVView extends TextFileView {
-  tableData: string[][];
+  tableData: string[][] = [];
+  // @ts-ignore
   tableEl: HTMLElement;
 
   getViewData() {
@@ -14,7 +17,7 @@ export class CSVView extends TextFileView {
 
   // If clear is set, then it means we're opening a completely different file.
   setViewData(data: string, clear: boolean) {
-    console.log("data", data);
+    console.log("data111", data);
 
     this.tableData = data.split("\n").map((line) => line.split(","));
     console.log("aa", this.tableData);
@@ -25,24 +28,7 @@ export class CSVView extends TextFileView {
   refresh() {
     this.tableEl.empty();
 
-    const tableBody = this.tableEl.createEl("tbody");
-
-    this.tableData.forEach((row, i) => {
-      const tableRow = tableBody.createEl("tr");
-
-      row.forEach((cell, j) => {
-        const input = tableRow
-          .createEl("td")
-          .createEl("input", { attr: { value: cell } });
-
-        input.oninput = (ev) => {
-          if (ev.currentTarget instanceof HTMLInputElement) {
-            this.tableData[i][j] = ev.currentTarget.value;
-            this.requestSave();
-          }
-        };
-      });
-    });
+    createApp(App1).mount(this.tableEl);
   }
 
   clear() {
@@ -57,7 +43,7 @@ export class CSVView extends TextFileView {
   async onOpen() {
     console.log("open", this.tableData);
 
-    this.tableEl = this.contentEl.createEl("table");
+    this.tableEl = this.contentEl.createEl("div");
   }
 
   async onClose() {

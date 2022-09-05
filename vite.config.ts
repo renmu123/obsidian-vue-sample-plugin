@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(__dirname, "lib/main.ts"),
+      entry: resolve(__dirname, "src/main.ts"),
       name: "MyLib",
       // the proper extensions will be added
       fileName: "main",
@@ -29,6 +29,9 @@ export default defineConfig({
         exports: "default",
         globals: {
           vue: "Vue",
+        },
+        assetFileNames: (chunkInfo) => {
+          if (chunkInfo.name === "style.css") return "styles.css";
         },
       },
       external: ["obsidian"],

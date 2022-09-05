@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vue-tsc --noEmit && vite build --watch",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
@@ -17,6 +17,7 @@
     "@rollup/plugin-typescript": "^8.4.0",
     "@vitejs/plugin-vue": "^3.0.3",
     "obsidian": "^0.12.2",
+    "sass": "^1.54.8",
     "tslib": "^2.2.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
